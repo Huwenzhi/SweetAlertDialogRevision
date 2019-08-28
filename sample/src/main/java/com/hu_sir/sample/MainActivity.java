@@ -4,6 +4,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.hu_sir.sweet_dialog_reversion.SweetAlertDialog;
 
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.warning_cancel_test).setOnClickListener(this);
         findViewById(R.id.custom_img_test).setOnClickListener(this);
         findViewById(R.id.progress_dialog).setOnClickListener(this);
+        findViewById(R.id.edit_frame).setOnClickListener(this);
+        findViewById(R.id.selfview_frame).setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -158,6 +161,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
                     }
                 }.start();
+                break;
+            case R.id.edit_frame:
+                new SweetAlertDialog(this,SweetAlertDialog.EDITE_TYPE).setTitleText("这是一个输入框").setEditHint("请输入你要的内容")
+                        .setConfirmText("确定").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        Toast.makeText(MainActivity.this, sweetAlertDialog.getmEditText(), Toast.LENGTH_SHORT).show();
+                    }
+                }).show();
+
+                break;
+            case R.id.selfview_frame:
+                View view=View.inflate(MainActivity.this,R.layout.activity_main,null);
+                new SweetAlertDialog(this,SweetAlertDialog.CONTENTVIEW_TYPE).setTitleText("这是一个输入框")
+                        .setmContentView(view)
+                        .setConfirmText("确定").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        Toast.makeText(MainActivity.this, sweetAlertDialog.getmEditText(), Toast.LENGTH_SHORT).show();
+                    }
+                }).setCancelText("取消")
+                        .show();
                 break;
         }
     }

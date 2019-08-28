@@ -4,6 +4,8 @@
     android:id="@+id/loading"
     android:layout_width="@dimen/alert_width"
     android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
     android:gravity="center"
     android:layout_gravity="center"
     android:orientation="vertical"
@@ -118,6 +120,9 @@
             wheel:matProg_progressIndeterminate="true" />
     </FrameLayout>
 
+
+
+
     <TextView
         android:id="@+id/title_text"
         android:layout_width="wrap_content"
@@ -138,6 +143,30 @@
         android:gravity="center"
         android:textColor="#797979"
         android:visibility="gone" />
+    <FrameLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/edit_frame"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/swt_edit"
+            android:hint="请输入"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/content_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_marginTop="10dp"
@@ -158,4 +187,6 @@
             style="@style/dialog_blue_button"
             android:text="@string/dialog_ok" />
     </LinearLayout>
+
+
 </LinearLayout>
