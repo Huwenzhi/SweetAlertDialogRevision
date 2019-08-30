@@ -72,6 +72,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     public static final int EDITE_TYPE = 6;
     public static final int CONTENTVIEW_TYPE = 7;
     View contentView;
+    private String editeHinttext;
 
     public static interface OnSweetClickListener {
         public void onClick(SweetAlertDialog sweetAlertDialog);
@@ -239,6 +240,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
                     mConfirmButton.setVisibility(View.GONE);
                     break;
                 case EDITE_TYPE:
+                    setEditHint(editeHinttext);
                     mEditFrame.setVisibility(View.VISIBLE);
                     break;
                 case CONTENTVIEW_TYPE:
@@ -352,6 +354,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     }
 
     public SweetAlertDialog setEditHint(String text) {
+        this.editeHinttext=text;
         if (mEdit != null) {
             mEdit.setHint(text);
         }
