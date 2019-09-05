@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     public static final int CONTENTVIEW_TYPE = 7;
     View contentView;
     private String editeHinttext;
+    private int editeType;
 
     public static interface OnSweetClickListener {
         public void onClick(SweetAlertDialog sweetAlertDialog);
@@ -241,6 +243,9 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
                     break;
                 case EDITE_TYPE:
                     setEditHint(editeHinttext);
+                    if (editeType != 0) {
+                        setEditInput(editeType);
+                    }
                     mEditFrame.setVisibility(View.VISIBLE);
                     break;
                 case CONTENTVIEW_TYPE:
@@ -258,7 +263,6 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
                         mContentView.addView(contentView);
                     }
                     mContentView.setVisibility(View.VISIBLE);
-
 
 
                     break;
@@ -353,10 +357,19 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         return this;
     }
 
+    public SweetAlertDialog setEditInput(int inputtype) {
+        this.editeType = inputtype;
+        if (mEdit != null && inputtype != 0) {
+            mEdit.setInputType(inputtype);
+        }
+        return this;
+    }
+
     public SweetAlertDialog setEditHint(String text) {
-        this.editeHinttext=text;
+        this.editeHinttext = text;
         if (mEdit != null) {
             mEdit.setHint(text);
+            mEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
         }
         return this;
     }
