@@ -165,7 +165,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.edit_frame:
                 new SweetAlertDialog(this,SweetAlertDialog.EDITE_TYPE).setTitleText("这是一个输入框").setEditHint("请输入你要的内容")
-                       .setEditInput(InputType.TYPE_CLASS_NUMBER)
+                       .setShowKeyBord(true)
+                        .setEditInput(InputType.TYPE_CLASS_NUMBER)
                         .setConfirmText("确定").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {

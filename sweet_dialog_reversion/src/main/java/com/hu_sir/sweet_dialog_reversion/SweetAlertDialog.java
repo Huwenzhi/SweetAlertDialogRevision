@@ -1,6 +1,7 @@
 package com.hu_sir.sweet_dialog_reversion;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -15,6 +16,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.Transformation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -74,18 +76,21 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     public static final int CONTENTVIEW_TYPE = 7;
     View contentView;
     private String editeHinttext;
+    private boolean editeShowKeyBord=false;
     private int editeType;
-
+    private Context context;
     public static interface OnSweetClickListener {
         public void onClick(SweetAlertDialog sweetAlertDialog);
     }
 
     public SweetAlertDialog(Context context) {
         this(context, NORMAL_TYPE);
+        this.context=context;
     }
 
     public SweetAlertDialog(Context context, int alertType) {
         super(context, R.style.alert_dialog);
+        this.context=context;
         setCancelable(true);
         setCanceledOnTouchOutside(false);
         mProgressHelper = new ProgressHelper(context);
@@ -243,6 +248,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
                     break;
                 case EDITE_TYPE:
                     setEditHint(editeHinttext);
+                    setShowKeyBord(editeShowKeyBord);
                     if (editeType != 0) {
                         setEditInput(editeType);
                     }
@@ -373,6 +379,16 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         }
         return this;
     }
+    public SweetAlertDialog setShowKeyBord(boolean show) {
+        this.editeShowKeyBord = show;
+        if (mEdit != null&&show) {
+            mEdit.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(((Activity)context).getWindow().getDecorView(), InputMethodManager.SHOW_FORCED);
+        }
+        return this;
+    }
+
 
     public String getmEditText() {
         return mEdit.getText().toString();

@@ -153,6 +153,8 @@
             android:id="@+id/swt_edit"
             android:hint="请输入"
             android:padding="5dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:background="@drawable/edit_bg_selector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
