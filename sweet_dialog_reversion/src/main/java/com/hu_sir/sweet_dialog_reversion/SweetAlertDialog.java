@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -79,6 +80,10 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     private boolean editeShowKeyBord=false;
     private int editeType;
     private Context context;
+    int gravity;//设置edit的位置
+
+    int defaultConfirmButtonRes;
+    int defaultCancelButtonRes;
     public static interface OnSweetClickListener {
         public void onClick(SweetAlertDialog sweetAlertDialog);
     }
@@ -182,6 +187,8 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         setContentText(mContentText);
         setCancelText(mCancelText);
         setConfirmText(mConfirmText);
+        setConfirmRes(defaultConfirmButtonRes);
+        setCancelRes(defaultCancelButtonRes);
         changeAlertType(mAlertType, true);
 
     }
@@ -249,6 +256,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
                 case EDITE_TYPE:
                     setEditHint(editeHinttext);
                     setShowKeyBord(editeShowKeyBord);
+                    setEditGravity(gravity);
                     if (editeType != 0) {
                         setEditInput(editeType);
                     }
@@ -362,6 +370,14 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         }
         return this;
     }
+    public SweetAlertDialog setCancelRes(int res) {
+        defaultCancelButtonRes = res;
+        if (mCancelButton != null && res != 0) {
+            showCancelButton(true);
+            mCancelButton.setBackgroundResource(defaultConfirmButtonRes);
+        }
+        return this;
+    }
 
     public SweetAlertDialog setEditInput(int inputtype) {
         this.editeType = inputtype;
@@ -371,6 +387,24 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         return this;
     }
 
+    /**
+     *  设置文本显示的位置
+     * @param gravity
+     * @return
+     */
+    public SweetAlertDialog setEditGravity(int gravity) {
+        this.gravity = gravity;
+        if (mEdit != null && gravity != 0) {
+            mEdit.setGravity(Gravity.CENTER);
+        }
+        return this;
+    }
+
+    /**
+     * 设置hint
+     * @param text
+     * @return
+     */
     public SweetAlertDialog setEditHint(String text) {
         this.editeHinttext = text;
         if (mEdit != null) {
@@ -379,6 +413,12 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         }
         return this;
     }
+
+    /**
+     * 设置是否显示键盘 有部分版本的手机不支持
+     * @param show
+     * @return
+     */
     public SweetAlertDialog setShowKeyBord(boolean show) {
         this.editeShowKeyBord = show;
         if (mEdit != null&&show) {
@@ -394,6 +434,10 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         return mEdit.getText().toString();
     }
 
+    public EditText getmEdit() {
+        return mEdit;
+    }
+
     public String getConfirmText() {
         return mConfirmText;
     }
@@ -402,6 +446,14 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         mConfirmText = text;
         if (mConfirmButton != null && mConfirmText != null) {
             mConfirmButton.setText(mConfirmText);
+        }
+        return this;
+    }
+
+    public SweetAlertDialog setConfirmRes(int res) {
+        defaultConfirmButtonRes = res;
+        if (mConfirmButton != null && res != 0) {
+            mConfirmButton.setBackgroundResource(defaultConfirmButtonRes);
         }
         return this;
     }

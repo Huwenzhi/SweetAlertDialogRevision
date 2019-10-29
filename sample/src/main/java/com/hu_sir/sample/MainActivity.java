@@ -4,6 +4,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -164,7 +165,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }.start();
                 break;
             case R.id.edit_frame:
-                new SweetAlertDialog(this,SweetAlertDialog.EDITE_TYPE).setTitleText("这是一个输入框").setEditHint("请输入你要的内容")
+                new SweetAlertDialog(this,SweetAlertDialog.EDITE_TYPE).setTitleText("这是一个输入框")
+                        .setEditHint("请输入你要的内容")
+//                        .setEditGravity(Gravity.CENTER)
+//                        .setConfirmRes(R.drawable.red_button_background)
                        .setShowKeyBord(true)
                         .setEditInput(InputType.TYPE_CLASS_NUMBER)
                         .setConfirmText("确定").setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
