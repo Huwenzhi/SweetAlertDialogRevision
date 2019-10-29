@@ -79,6 +79,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     private String editeHinttext;
     private boolean editeShowKeyBord=false;
     private int editeType;
+    private String editTtext;
     private Context context;
     int gravity;//设置edit的位置
 
@@ -260,6 +261,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
                     if (editeType != 0) {
                         setEditInput(editeType);
                     }
+                    setEditText(editTtext);
                     mEditFrame.setVisibility(View.VISIBLE);
                     break;
                 case CONTENTVIEW_TYPE:
@@ -285,6 +287,16 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
                 playAnimation();
             }
         }
+    }
+
+    private SweetAlertDialog setEditText(String editTtext) {
+        this.editTtext=editTtext;
+
+        if (mEdit!=null&&!TextUtils.isEmpty(editTtext)){
+            mEdit.setText(editTtext);
+        }
+
+        return this;
     }
 
     public int getAlerType() {
