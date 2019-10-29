@@ -289,7 +289,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         }
     }
 
-    private SweetAlertDialog setEditText(String editTtext) {
+    public SweetAlertDialog setEditText(String editTtext) {
         this.editTtext=editTtext;
 
         if (mEdit!=null&&!TextUtils.isEmpty(editTtext)){
