@@ -314,6 +314,9 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
 
         if (mEdit != null && !TextUtils.isEmpty(editTtext)) {
             mEdit.setText(editTtext);
+            mEdit.setSelection(editTtext.length());//将光标移至文字末尾
+
+
         }
 
         return this;

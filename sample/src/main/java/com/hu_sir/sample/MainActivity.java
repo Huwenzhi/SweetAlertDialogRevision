@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new SweetAlertDialog(this,SweetAlertDialog.EDITE_TYPE).setTitleText("这是一个输入框")
                         .setEditHint("请输入你要的内容")
                         .setEditGravity(Gravity.CENTER)
+                        .setEditText("12345")
 //                        .setConfirmRes(R.drawable.red_button_background)
                        .setShowKeyBord(true)
 //                        .setEditInput(InputType.TYPE_CLASS_TEXT)
