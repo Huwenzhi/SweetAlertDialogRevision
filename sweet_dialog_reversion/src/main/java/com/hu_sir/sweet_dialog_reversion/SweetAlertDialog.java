@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.DigitsKeyListener;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     public static final int CONTENTVIEW_TYPE = 7;
     View contentView;
     private String editeHinttext;
-    private boolean editeShowKeyBord=false;
+    private boolean editeShowKeyBord = false;
     private int editeType;
     private String editTtext;
     private Context context;
@@ -85,18 +86,21 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
 
     int defaultConfirmButtonRes;
     int defaultCancelButtonRes;
+
+    String accepted;//edit能够接受的值
+
     public static interface OnSweetClickListener {
         public void onClick(SweetAlertDialog sweetAlertDialog);
     }
 
     public SweetAlertDialog(Context context) {
         this(context, NORMAL_TYPE);
-        this.context=context;
+        this.context = context;
     }
 
     public SweetAlertDialog(Context context, int alertType) {
         super(context, R.style.alert_dialog);
-        this.context=context;
+        this.context = context;
         setCancelable(true);
         setCanceledOnTouchOutside(false);
         mProgressHelper = new ProgressHelper(context);
@@ -261,6 +265,11 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
                     if (editeType != 0) {
                         setEditInput(editeType);
                     }
+                    if (!TextUtils.isEmpty(accepted)) {
+
+                        setEditAccept(accepted);
+                    }
+
                     setEditText(editTtext);
                     mEditFrame.setVisibility(View.VISIBLE);
                     break;
@@ -289,10 +298,21 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         }
     }
 
-    public SweetAlertDialog setEditText(String editTtext) {
-        this.editTtext=editTtext;
+    public SweetAlertDialog setEditAccept(String accepted) {
+        this.accepted = accepted;
 
-        if (mEdit!=null&&!TextUtils.isEmpty(editTtext)){
+        if (mEdit != null && !TextUtils.isEmpty(accepted)) {
+            mEdit.setKeyListener(DigitsKeyListener.getInstance(accepted));
+        }
+
+        return this;
+
+    }
+
+    public SweetAlertDialog setEditText(String editTtext) {
+        this.editTtext = editTtext;
+
+        if (mEdit != null && !TextUtils.isEmpty(editTtext)) {
             mEdit.setText(editTtext);
         }
 
@@ -382,6 +402,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         }
         return this;
     }
+
     public SweetAlertDialog setCancelRes(int res) {
         defaultCancelButtonRes = res;
         if (mCancelButton != null && res != 0) {
@@ -393,14 +414,17 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
 
     public SweetAlertDialog setEditInput(int inputtype) {
         this.editeType = inputtype;
+
         if (mEdit != null && inputtype != 0) {
             mEdit.setInputType(inputtype);
+
         }
         return this;
     }
 
     /**
-     *  设置文本显示的位置
+     * 设置文本显示的位置
+     *
      * @param gravity
      * @return
      */
@@ -414,6 +438,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
 
     /**
      * 设置hint
+     *
      * @param text
      * @return
      */
@@ -428,15 +453,16 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
 
     /**
      * 设置是否显示键盘 有部分版本的手机不支持
+     *
      * @param show
      * @return
      */
     public SweetAlertDialog setShowKeyBord(boolean show) {
         this.editeShowKeyBord = show;
-        if (mEdit != null&&show) {
+        if (mEdit != null && show) {
             mEdit.requestFocus();
             InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(((Activity)context).getWindow().getDecorView(), InputMethodManager.SHOW_FORCED);
+            imm.showSoftInput(((Activity) context).getWindow().getDecorView(), InputMethodManager.SHOW_FORCED);
         }
         return this;
     }
